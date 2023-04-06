@@ -85,4 +85,3 @@ pipeline {
             sh 'rm -rf .git ./*'
         }
     }
-}
