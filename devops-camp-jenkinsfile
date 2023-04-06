@@ -26,18 +26,13 @@ pipeline {
             }
         }
         
-                  post {
-                      //clean local docker images
-                    
-                  }
-              }
-              stage('Deploy') {
-                  steps {
+        stage('Deploy') {
+            steps {
                       echo "Deployment stage"
                       //deploy database
                       
-                  }
-              }
+            }
+        }
            
         stage('Application docker build') {
             steps {
