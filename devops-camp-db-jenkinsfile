@@ -50,7 +50,7 @@ pipeline {
                       }
                   }
                   post {
-                      //TODO: clean local docker images
+                      //clean local docker images
                         always {
                           echo "Clean local $DB_IMAGE_NAME image"
                           script {
