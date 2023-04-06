@@ -9,9 +9,8 @@ pipeline {
         HARBOR_PROJECT = 'rgopal-harbor-project'
         DB_IMAGE_NAME = 'db'
     }
-
     stages {
-        //add stages to pipeline
+        //TODO: add stages to pipeline
         stage('Application repository') {
             steps {
                 echo "Cloning application repository"
@@ -21,15 +20,13 @@ pipeline {
                         env.COMMIT_HASH = sh(script: 'git log --format=format:%h -1 --follow database/database.sql', returnStdout: true).trim()
                     }
                 }
-                 withCredentials([usernamePassword(credentialsId: 'rgopal-harbor-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'rgopal-harbor-auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     script {
                         env.BUILD_DB = sh(script: 'python check_harbor_db.py -h $COMMIT_HASH -i $DB_IMAGE_NAME -r $HARBOR_REGISTRY -p $HARBOR_PROJECT -c ${USERNAME}:${PASSWORD}', returnStdout: true).trim()
                     }
                 }
             }
-            
         }
-
         stage('DB changes: true') {
            when {
               environment name: 'BUILD_DB', value: 'true'
@@ -50,8 +47,8 @@ pipeline {
                       }
                   }
                   post {
-                      //clean local docker images
-                        always {
+                      //TODO: clean local docker images
+                      always {
                           echo "Clean local $DB_IMAGE_NAME image"
                           script {
                               try {
@@ -73,12 +70,11 @@ pipeline {
               }
            }
         }
-        
+    }
     post {
         cleanup {
             echo "Clean workspace"
             sh 'rm -rf .git ./*'
         }
     }
-}
 }
