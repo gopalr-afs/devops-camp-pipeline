@@ -25,14 +25,6 @@ pipeline {
                
             }
         }
-        
-        stage('Deploy') {
-            steps {
-                      echo "Deployment stage"
-                      //deploy database
-                      
-            }
-        }
            
         stage('Application docker build') {
             steps {
