@@ -38,8 +38,7 @@ pipeline {
                       
                   }
               }
-           }
-        }
+           
         stage('Application docker build') {
             steps {
                 echo "Building application image"
